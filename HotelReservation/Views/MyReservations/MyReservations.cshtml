@@ -1,0 +1,93 @@
+﻿@model IEnumerable<HotelReservation.Models.MY_RESERVATIONS>
+
+@{
+    ViewBag.Title = "MyReservations";
+}
+
+<h2>MyReservations</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.ARRIVAL_DATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DEPARTURE_DATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ROOM_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ROOM_TYPE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPTION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ROOM_PRICE)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.MAX_GUEST)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DISCOUNT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ADVANCE)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @*<td>
+            @Html.HiddenFor(modelItem => item.RESERVE_ID)
+        </td>
+        <td>
+            @Html.HiddenFor(modelItem => item.CUST_ID)
+        </td>*@
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.ARRIVAL_DATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DEPARTURE_DATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ROOM_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ROOM_TYPE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRIPTION)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.ROOM_PRICE)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.MAX_GUEST)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DISCOUNT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ADVANCE)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Cancel", "Cancel", new { /* id=item.PrimaryKey */ }) 
+            
+        </td>
+    </tr>
+}
+
+</table>

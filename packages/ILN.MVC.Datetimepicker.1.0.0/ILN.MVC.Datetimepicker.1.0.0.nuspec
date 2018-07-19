@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ILN.MVC.Datetimepicker</id>
+    <version>1.0.0</version>
+    <title>MVC Bootstrap Datetimepicker based on bootstrap v3</title>
+    <authors>I.L.N Software, By Ilan Laloum</authors>
+    <owners>I.L.N Software, By Ilan Laloum</owners>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <projectUrl>https://ilnmvcdatetimepicker.codeplex.com/</projectUrl>
+    <iconUrl>http://iln-software.com/img/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MVC date/time picker helper based on Bootstarp.v3.Datetimepicker</description>
+    <summary>MVC datetime picker based on Bootstrap.V3.Datetimepicker component,
+Easy to use in razor pages @Html.DateTimeFor(m=&gt;m.Date)</summary>
+    <releaseNotes>The first version of ILN.MVC.Datetimepicker</releaseNotes>
+    <copyright>I.L.N Software Copyright  2015</copyright>
+    <tags>mvc datetime datepicker bootstrap timepicker datetimepicker helper</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.0">
+        <dependency id="Bootstrap.v3.Datetimepicker.CSS" version="4.15.35" />
+        <dependency id="Moment.js" version="2.10.6" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

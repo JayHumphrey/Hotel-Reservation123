@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OnlineHotelReservationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ADMIN_PROFILE">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="EMAIL" />
+          </Key>
+          <Property Name="USER_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PASSWORD" Type="nchar" MaxLength="8" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="LAST_NAME" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="PHONE_NO" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="STATUS" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BILL_PAYMENT">
+          <Key>
+            <PropertyRef Name="PAYMENT_ID" />
+          </Key>
+          <Property Name="PAYMENT_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CUST_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TOTAL_AMOUNT" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ADVANCE" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="BALANCE" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="CUSTOMER_PROFILE">
+          <Key>
+            <PropertyRef Name="CUST_ID" />
+            <PropertyRef Name="EMAIL" />
+          </Key>
+          <Property Name="CUST_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="LAST_NAME" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="ADDRESS" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="EMAIL" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="PHONE_NO" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="GENDER" Type="nchar" MaxLength="7" Nullable="false" />
+          <Property Name="STATUS" Type="nchar" MaxLength="10" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RESERVATION">
+          <Key>
+            <PropertyRef Name="RESERVE_ID" />
+          </Key>
+          <Property Name="RESERVE_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PAYMENT_ID" Type="uniqueidentifier" />
+          <Property Name="CUST_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ARRIVAL_DATE" Type="datetime" Nullable="false" />
+          <Property Name="DEPARTURE_DATE" Type="datetime" Nullable="false" />
+          <Property Name="BOOKING_STATUS" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ROOM_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROOM_DETAILS">
+          <Key>
+            <PropertyRef Name="ROOM_ID" />
+          </Key>
+          <Property Name="ROOM_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ROOM_TYPE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="TOTAL_ROOMS" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="STATUS" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROOM_TYPE_INFO">
+          <Key>
+            <PropertyRef Name="ROOM_TYPE" />
+          </Key>
+          <Property Name="ROOM_TYPE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="ROOM_PRICE" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MAX_GUEST" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DISCOUNT" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <Association Name="FK_ROOM_DETAILS_ROOM_TYPE_INFO">
+          <End Role="ROOM_TYPE_INFO" Type="Self.ROOM_TYPE_INFO" Multiplicity="1" />
+          <End Role="ROOM_DETAILS" Type="Self.ROOM_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROOM_TYPE_INFO">
+              <PropertyRef Name="ROOM_TYPE" />
+            </Principal>
+            <Dependent Role="ROOM_DETAILS">
+              <PropertyRef Name="ROOM_TYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ADMIN_PROFILE_AdminSignUp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="PassWord" Type="nchar" Mode="In" />
+          <Parameter Name="FirstName" Type="nchar" Mode="In" />
+          <Parameter Name="LastName" Type="nchar" Mode="In" />
+          <Parameter Name="PhoneNo" Type="nchar" Mode="In" />
+          <Parameter Name="Email" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="CUSTOMER_PROFILE_CustomerSignUp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Cust_ID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="FirstName" Type="nchar" Mode="In" />
+          <Parameter Name="LastName" Type="nchar" Mode="In" />
+          <Parameter Name="Address" Type="nchar" Mode="In" />
+          <Parameter Name="Email" Type="nchar" Mode="In" />
+          <Parameter Name="Phone" Type="nvarchar" Mode="In" />
+          <Parameter Name="Gender" Type="nchar" Mode="In" />
+          <Parameter Name="PassWord" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="RoomsForPublicView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="OnlineHotelReservationModelStoreContainer">
+          <EntitySet Name="ADMIN_PROFILE" EntityType="Self.ADMIN_PROFILE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BILL_PAYMENT" EntityType="Self.BILL_PAYMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CUSTOMER_PROFILE" EntityType="Self.CUSTOMER_PROFILE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RESERVATION" EntityType="Self.RESERVATION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROOM_DETAILS" EntityType="Self.ROOM_DETAILS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROOM_TYPE_INFO" EntityType="Self.ROOM_TYPE_INFO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ROOM_DETAILS_ROOM_TYPE_INFO" Association="Self.FK_ROOM_DETAILS_ROOM_TYPE_INFO">
+            <End Role="ROOM_TYPE_INFO" EntitySet="ROOM_TYPE_INFO" />
+            <End Role="ROOM_DETAILS" EntitySet="ROOM_DETAILS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnlineHotelReservationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ADMIN_PROFILE">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+            <PropertyRef Name="EMAIL" />
+          </Key>
+          <Property Name="USER_ID" Type="Guid" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="8" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="PHONE_NO" Type="String" MaxLength="11" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="STATUS" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BILL_PAYMENT">
+          <Key>
+            <PropertyRef Name="PAYMENT_ID" />
+          </Key>
+          <Property Name="PAYMENT_ID" Type="Guid" Nullable="false" />
+          <Property Name="CUST_ID" Type="Guid" Nullable="false" />
+          <Property Name="TOTAL_AMOUNT" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ADVANCE" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BALANCE" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="CUSTOMER_PROFILE">
+          <Key>
+            <PropertyRef Name="CUST_ID" />
+            <PropertyRef Name="EMAIL" />
+          </Key>
+          <Property Name="CUST_ID" Type="Guid" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="PHONE_NO" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GENDER" Type="String" MaxLength="7" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="STATUS" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RESERVATION">
+          <Key>
+            <PropertyRef Name="RESERVE_ID" />
+          </Key>
+          <Property Name="RESERVE_ID" Type="Guid" Nullable="false" />
+          <Property Name="PAYMENT_ID" Type="Guid" />
+          <Property Name="CUST_ID" Type="Guid" Nullable="false" />
+          <Property Name="ARRIVAL_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DEPARTURE_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BOOKING_STATUS" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ROOM_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ROOM_DETAILS">
+          <Key>
+            <PropertyRef Name="ROOM_ID" />
+          </Key>
+          <Property Name="ROOM_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ROOM_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TOTAL_ROOMS" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="STATUS" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ROOM_TYPE_INFO" Relationship="Self.FK_ROOM_DETAILS_ROOM_TYPE_INFO" FromRole="ROOM_DETAILS" ToRole="ROOM_TYPE_INFO" />
+        </EntityType>
+        <EntityType Name="ROOM_TYPE_INFO">
+          <Key>
+            <PropertyRef Name="ROOM_TYPE" />
+          </Key>
+          <Property Name="ROOM_TYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ROOM_PRICE" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MAX_GUEST" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DISCOUNT" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="ROOM_DETAILS" Relationship="Self.FK_ROOM_DETAILS_ROOM_TYPE_INFO" FromRole="ROOM_TYPE_INFO" ToRole="ROOM_DETAILS" />
+        </EntityType>
+        <Association Name="FK_ROOM_DETAILS_ROOM_TYPE_INFO">
+          <End Role="ROOM_TYPE_INFO" Type="Self.ROOM_TYPE_INFO" Multiplicity="1" />
+          <End Role="ROOM_DETAILS" Type="Self.ROOM_DETAILS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROOM_TYPE_INFO">
+              <PropertyRef Name="ROOM_TYPE" />
+            </Principal>
+            <Dependent Role="ROOM_DETAILS">
+              <PropertyRef Name="ROOM_TYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnlineHotelReservationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ADMIN_PROFILE" EntityType="Self.ADMIN_PROFILE" />
+          <EntitySet Name="BILL_PAYMENT" EntityType="Self.BILL_PAYMENT" />
+          <EntitySet Name="CUSTOMER_PROFILE" EntityType="Self.CUSTOMER_PROFILE" />
+          <EntitySet Name="RESERVATIONs" EntityType="Self.RESERVATION" />
+          <EntitySet Name="ROOM_DETAILS" EntityType="Self.ROOM_DETAILS" />
+          <EntitySet Name="ROOM_TYPE_INFO" EntityType="Self.ROOM_TYPE_INFO" />
+          <AssociationSet Name="FK_ROOM_DETAILS_ROOM_TYPE_INFO" Association="Self.FK_ROOM_DETAILS_ROOM_TYPE_INFO">
+            <End Role="ROOM_TYPE_INFO" EntitySet="ROOM_TYPE_INFO" />
+            <End Role="ROOM_DETAILS" EntitySet="ROOM_DETAILS" />
+          </AssociationSet>
+          <FunctionImport Name="CUSTOMER_PROFILE_CustomerSignUp">
+            <Parameter Name="Cust_ID" Mode="In" Type="Guid" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="String" />
+            <Parameter Name="PassWord" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RoomsForPublicView" ReturnType="Collection(OnlineHotelReservationModel.RoomsForPublicView_Result)" />
+          <FunctionImport Name="ADMIN_PROFILE_AdminSignUp">
+            <Parameter Name="UserID" Mode="In" Type="Guid" />
+            <Parameter Name="PassWord" Mode="In" Type="String" />
+            <Parameter Name="FirstName" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+            <Parameter Name="PhoneNo" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="RoomsForPublicView_Result">
+          <Property Type="String" Name="ROOM_ID" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="ROOM_TYPE" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="DESCRIPTION" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="MAX_GUEST" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DISCOUNT" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="ROOM_PRICE" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="TOTAL_ROOMS" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="STATUS" Nullable="false" MaxLength="15" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnlineHotelReservationModelStoreContainer" CdmEntityContainer="OnlineHotelReservationEntities">
+          <EntitySetMapping Name="ADMIN_PROFILE">
+            <EntityTypeMapping TypeName="OnlineHotelReservationModel.ADMIN_PROFILE">
+              <MappingFragment StoreEntitySet="ADMIN_PROFILE">
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="PHONE_NO" ColumnName="PHONE_NO" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BILL_PAYMENT">
+            <EntityTypeMapping TypeName="OnlineHotelReservationModel.BILL_PAYMENT">
+              <MappingFragment StoreEntitySet="BILL_PAYMENT">
+                <ScalarProperty Name="PAYMENT_ID" ColumnName="PAYMENT_ID" />
+                <ScalarProperty Name="CUST_ID" ColumnName="CUST_ID" />
+                <ScalarProperty Name="TOTAL_AMOUNT" ColumnName="TOTAL_AMOUNT" />
+                <ScalarProperty Name="ADVANCE" ColumnName="ADVANCE" />
+                <ScalarProperty Name="BALANCE" ColumnName="BALANCE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CUSTOMER_PROFILE">
+            <EntityTypeMapping TypeName="OnlineHotelReservationModel.CUSTOMER_PROFILE">
+              <MappingFragment StoreEntitySet="CUSTOMER_PROFILE">
+                <ScalarProperty Name="CUST_ID" ColumnName="CUST_ID" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PHONE_NO" ColumnName="PHONE_NO" />
+                <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RESERVATIONs">
+            <EntityTypeMapping TypeName="OnlineHotelReservationModel.RESERVATION">
+              <MappingFragment StoreEntitySet="RESERVATION">
+                <ScalarProperty Name="ROOM_ID" ColumnName="ROOM_ID" />
+                <ScalarProperty Name="RESERVE_ID" ColumnName="RESERVE_ID" />
+                <ScalarProperty Name="PAYMENT_ID" ColumnName="PAYMENT_ID" />
+                <ScalarProperty Name="CUST_ID" ColumnName="CUST_ID" />
+                <ScalarProperty Name="ARRIVAL_DATE" ColumnName="ARRIVAL_DATE" />
+                <ScalarProperty Name="DEPARTURE_DATE" ColumnName="DEPARTURE_DATE" />
+                <ScalarProperty Name="BOOKING_STATUS" ColumnName="BOOKING_STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROOM_DETAILS">
+            <EntityTypeMapping TypeName="OnlineHotelReservationModel.ROOM_DETAILS">
+              <MappingFragment StoreEntitySet="ROOM_DETAILS">
+                <ScalarProperty Name="ROOM_ID" ColumnName="ROOM_ID" />
+                <ScalarProperty Name="ROOM_TYPE" ColumnName="ROOM_TYPE" />
+                <ScalarProperty Name="TOTAL_ROOMS" ColumnName="TOTAL_ROOMS" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROOM_TYPE_INFO">
+            <EntityTypeMapping TypeName="OnlineHotelReservationModel.ROOM_TYPE_INFO">
+              <MappingFragment StoreEntitySet="ROOM_TYPE_INFO">
+                <ScalarProperty Name="ROOM_TYPE" ColumnName="ROOM_TYPE" />
+                <ScalarProperty Name="ROOM_PRICE" ColumnName="ROOM_PRICE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="MAX_GUEST" ColumnName="MAX_GUEST" />
+                <ScalarProperty Name="DISCOUNT" ColumnName="DISCOUNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CUSTOMER_PROFILE_CustomerSignUp" FunctionName="OnlineHotelReservationModel.Store.CUSTOMER_PROFILE_CustomerSignUp" />
+          <FunctionImportMapping FunctionImportName="RoomsForPublicView" FunctionName="OnlineHotelReservationModel.Store.RoomsForPublicView">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineHotelReservationModel.RoomsForPublicView_Result">
+                <ScalarProperty Name="ROOM_ID" ColumnName="ROOM_ID" />
+                <ScalarProperty Name="ROOM_TYPE" ColumnName="ROOM_TYPE" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="MAX_GUEST" ColumnName="MAX_GUEST" />
+                <ScalarProperty Name="DISCOUNT" ColumnName="DISCOUNT" />
+                <ScalarProperty Name="ROOM_PRICE" ColumnName="ROOM_PRICE" />
+                <ScalarProperty Name="TOTAL_ROOMS" ColumnName="TOTAL_ROOMS" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ADMIN_PROFILE_AdminSignUp" FunctionName="OnlineHotelReservationModel.Store.ADMIN_PROFILE_AdminSignUp" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

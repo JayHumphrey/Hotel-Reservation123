@@ -1,0 +1,187 @@
+﻿@model HotelReservation.Models.ADMIN_PROFILE
+
+@{
+    ViewBag.Title = "AdminSignUp";
+}
+<div class="span12" id="content">
+    <hr />
+    <div class="row-fluid">
+        <div class="span12">
+            <h2 align="middle"> Create Admin Profile </h2>
+        </div>
+    </div>
+    <hr />
+</div>
+<div class="row-fluid">
+    <div class="span9">
+        <div class="row-fluid">
+            <!-- block -->
+            <div class="block">
+                <div class="navbar navbar-inner block-header" style="padding-top: 10px;">
+                    <i class="icon-align-justify"></i>&nbsp; <h3>Sign Up</h3>
+
+                </div>
+                <div class="block-content collapse in">
+                    <div class="span12">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <br />
+                                <div class="control-group">
+                                    <label class="control-label">First Name<span class="required">*</span></label>
+                                    <div class="controls">
+                                        @*<input name="FirstName" value="@Model.FIRST_NAME" class="input-xlarge" type="text" placeholder="FirstName" />*@
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.FIRST_NAME, new { @class = "control-label col-md-2" })
+                                            @Html.ValidationMessageFor(model => model.FIRST_NAME)
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Last Name<span class="required">*</span></label>
+                                    <div class="controls">
+                                        @*<input name="LastName" value="@Model.LAST_NAME" class="input-xlarge" type="text" placeholder="LastName" />*@
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.LAST_NAME)
+                                            @Html.ValidationMessageFor(model => model.LAST_NAME)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Phone<span class="required">*</span></label>
+                                    <div class="controls">
+                                        @*<input name="Phone" value="@Model.PHONE_NO" class="input-large" type="text" placeholder="Phone" />*@
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.PHONE_NO)
+                                            @Html.ValidationMessageFor(model => model.PHONE_NO)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Email<span class="required">*</span></label>
+                                    <div class="controls">
+                                        <input name="Email" value="@Model.EMAIL" class="input-xlarge" type="email" placeholder="" />
+                                    </div>
+                                </div>                                
+                                                               
+                                <div class="control-group">
+                                    <label class="control-label">Password<span class="required">*</span></label>
+                                    <div class="controls">
+                                        <input name="Password" value="@Model.PASSWORD" class="input-xlarge" type="password" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">Confirm Password<span class="required">*</span></label>
+                                    <div class="controls">
+                                        <input name="ConfirmPassword" value="@Model.CONFIRMPASSWORD" class="input-xlarge" type="password" placeholder="" />
+                                    </div>
+                                </div>
+
+                                <br />
+
+                                <div class="span3">
+                                    <p class="control-label"><span class="required">*</span> Required Fields</p>
+                                </div>
+                                <br />
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <a href="/Home/Index" class="btn ">Cancel</a>
+                                </div>
+                            </div>
+
+                        }
+
+
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- /block -->
+        </div>
+
+    </div>
+    <div class="span3">
+    </div>
+</div>
+
+
+@*@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ADMIN_PROFILE</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FIRST_NAME, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FIRST_NAME)
+                @Html.ValidationMessageFor(model => model.FIRST_NAME)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LAST_NAME, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LAST_NAME)
+                @Html.ValidationMessageFor(model => model.LAST_NAME)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PHONE_NO, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PHONE_NO)
+                @Html.ValidationMessageFor(model => model.PHONE_NO)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EMAIL, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EMAIL)
+                @Html.ValidationMessageFor(model => model.EMAIL)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PASSWORD, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PASSWORD)
+                @Html.ValidationMessageFor(model => model.PASSWORD)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CONFIRMPASSWORD, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CONFIRMPASSWORD)
+                @Html.ValidationMessageFor(model => model.CONFIRMPASSWORD)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="SignUp" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}*@
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    Scripts.Render("~/bundles/jqueryval")
+}

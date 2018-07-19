@@ -1,0 +1,144 @@
+﻿@model HotelReservation.Models.Bill_Payment_info
+
+@{
+    ViewBag.Title = "BillPayment_info";
+}
+
+<div class="row-fluid">
+    <div class="span12" id="content">
+        <hr />
+        <div class="row-fluid">
+            <div class="span3">
+            </div>
+            <div class="span5">
+                <h2 align="middle"> Pay Your Bills...... </h2>
+            </div>
+            <div class="span5">
+                @if (ViewBag.Message != null)
+                {
+                    <h3 align="middle" style="color:green;">@ViewBag.Message</h3>
+                }
+            </div>
+        </div>
+        <hr />
+    </div>
+
+    <div class="row-fluid">
+        <div class="span2">
+        </div>
+        <div class="span9">
+            <div class="row-fluid">
+                <!-- block -->
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <h3>Bill Payment</h3>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                @Html.HiddenFor(model => model.RESERVE_ID)
+                                @Html.HiddenFor(model => model.CUST_ID)
+
+
+                                <div class="form-horizontal">
+                                    <br />
+                                    <br />
+                                    <br />
+                                    
+
+                                    <div class="control-group">
+                                        <label class="control-label">Total Amount</label>
+                                        <div class="controls">
+                                            <div class="col-md-10">                                               
+                                                    @Html.HiddenFor(model => model.ROOM_PRICE)
+                                                    @Html.EditorFor(model => model.TOTAL_AMOUNT, new { @ReadOnly = "true" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label">Advance<span class="required">*Minimum 2000TK</span></label>
+                                        <div class="controls">
+                                            <input name="Advance" value="@Model.ADVANCE" class="input-large" type="text" placeholder="" />
+                                        </div>
+                                    </div>
+
+                                    @*<div class="control-group">
+                                        <label class="control-label">Due</label>
+                                        <div class="controls">
+                                            <input name="Balance" value="@Model.BALANCE" class="input-large" type="text" placeholder="Due" />
+                                        </div>
+                                    </div>*@
+
+                                    <br />
+
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary">Confirm Your Booking</button>
+                                        @*<a href="~/Index/Home" class="btn ">Cancel</a>*@
+                                    </div>
+
+
+
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!-- /block -->
+            </div>
+
+        </div>
+        <div class="span3">
+        </div>
+    </div>
+</div>
+
+
+
+@*<div>
+    <h4>Bill_Payment_info</h4>
+	<hr />
+
+    
+    <dl class="dl-horizontal">
+        
+            @Html.HiddenFor(model => model.RESERVE_ID)
+            @Html.HiddenFor(model => model.CUST_ID)
+        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TOTAL_AMOUNT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ROOM_PRICE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ADVANCE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ADVANCE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BALANCE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BALANCE)
+        </dd>
+
+       
+
+    </dl>
+</div>*@
+<p>
+    @Html.ActionLink("Back to List", "Index","Home")
+</p>

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OnlineHotelReservationModelStoreContainer" CdmEntityContainer="OnlineHotelReservationEntities">
+    <EntitySetMapping Name="ADMIN_PROFILE">
+      <EntityTypeMapping TypeName="OnlineHotelReservationModel.ADMIN_PROFILE">
+        <MappingFragment StoreEntitySet="ADMIN_PROFILE">
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+          <ScalarProperty Name="PHONE_NO" ColumnName="PHONE_NO" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BILL_PAYMENT">
+      <EntityTypeMapping TypeName="OnlineHotelReservationModel.BILL_PAYMENT">
+        <MappingFragment StoreEntitySet="BILL_PAYMENT">
+          <ScalarProperty Name="PAYMENT_ID" ColumnName="PAYMENT_ID" />
+          <ScalarProperty Name="CUST_ID" ColumnName="CUST_ID" />
+          <ScalarProperty Name="TOTAL_AMOUNT" ColumnName="TOTAL_AMOUNT" />
+          <ScalarProperty Name="ADVANCE" ColumnName="ADVANCE" />
+          <ScalarProperty Name="BALANCE" ColumnName="BALANCE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CUSTOMER_PROFILE">
+      <EntityTypeMapping TypeName="OnlineHotelReservationModel.CUSTOMER_PROFILE">
+        <MappingFragment StoreEntitySet="CUSTOMER_PROFILE">
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="CUST_ID" ColumnName="CUST_ID" />
+          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="PHONE_NO" ColumnName="PHONE_NO" />
+          <ScalarProperty Name="GENDER" ColumnName="GENDER" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RESERVATION">
+      <EntityTypeMapping TypeName="OnlineHotelReservationModel.RESERVATION">
+        <MappingFragment StoreEntitySet="RESERVATION">
+          <ScalarProperty Name="RESERVE_ID" ColumnName="RESERVE_ID" />
+          <ScalarProperty Name="PAYMENT_ID" ColumnName="PAYMENT_ID" />
+          <ScalarProperty Name="CUST_ID" ColumnName="CUST_ID" />
+          <ScalarProperty Name="ARRIVAL_DATE" ColumnName="ARRIVAL_DATE" />
+          <ScalarProperty Name="DEPARTURE_DATE" ColumnName="DEPARTURE_DATE" />
+          <ScalarProperty Name="BOOKING_STATUS" ColumnName="BOOKING_STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ROOM_DETAILS">
+      <EntityTypeMapping TypeName="OnlineHotelReservationModel.ROOM_DETAILS">
+        <MappingFragment StoreEntitySet="ROOM_DETAILS">
+          <ScalarProperty Name="ROOM_ID" ColumnName="ROOM_ID" />
+          <ScalarProperty Name="ROOM_TYPE" ColumnName="ROOM_TYPE" />
+          <ScalarProperty Name="TOTAL_ROOMS" ColumnName="TOTAL_ROOMS" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ROOM_TYPE_INFO">
+      <EntityTypeMapping TypeName="OnlineHotelReservationModel.ROOM_TYPE_INFO">
+        <MappingFragment StoreEntitySet="ROOM_TYPE_INFO">
+          <ScalarProperty Name="ROOM_TYPE" ColumnName="ROOM_TYPE" />
+          <ScalarProperty Name="ROOM_PRICE" ColumnName="ROOM_PRICE" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="MAX_GUEST" ColumnName="MAX_GUEST" />
+          <ScalarProperty Name="DISCOUNT" ColumnName="DISCOUNT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="CUSTOMER_PROFILE_CustomerSignUp" FunctionName="OnlineHotelReservationModel.Store.CUSTOMER_PROFILE_CustomerSignUp" />
+    <FunctionImportMapping FunctionImportName="RoomsForPublicView" FunctionName="OnlineHotelReservationModel.Store.RoomsForPublicView">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OnlineHotelReservationModel.RoomsForPublicView_Result">
+          <ScalarProperty Name="ROOM_ID" ColumnName="ROOM_ID" />
+          <ScalarProperty Name="ROOM_TYPE" ColumnName="ROOM_TYPE" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="MAX_GUEST" ColumnName="MAX_GUEST" />
+          <ScalarProperty Name="DISCOUNT" ColumnName="DISCOUNT" />
+          <ScalarProperty Name="ROOM_PRICE" ColumnName="ROOM_PRICE" />
+          <ScalarProperty Name="TOTAL_ROOMS" ColumnName="TOTAL_ROOMS" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

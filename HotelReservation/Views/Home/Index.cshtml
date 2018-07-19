@@ -1,0 +1,213 @@
+﻿@model HotelReservation.Models.SearchList
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (Model != null)
+{
+    string.Format("{0:MM/dd/yyyy}", DateTime.MinValue);
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Index | AnythingReservation</title>
+
+    <!-- Bootstrap -->
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link href="/Content/bootstrap-responsive.min.css" rel="stylesheet" media="screen" />
+    <link href="/vendors/piechart/jquery.easy-pie-chart.css" rel="stylesheet" media="screen" />
+    <link href="/assets/styles.css" rel="stylesheet" media="screen" />
+    <script src="/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+    <link href="/css/owl.theme.css" rel="stylesheet">
+    <link href="prettify.css" rel="stylesheet">
+
+    <style>
+        #owl-demo .item img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    </style>
+
+</head>
+<body>
+
+
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="container-fluid">
+                <div class="span12">
+                    <div id="owl-demo" class="owl-carousel">
+                        <div class="item"><img src="/demos/images/1.jpg" alt="The Last of us"></div>
+                        <div class="item"><img src="/demos/images/2.jpg" alt="GTA V"></div>
+                        <div class="item"><img src="/demos/images/3.jpg" alt="Mirror Edge"></div>
+                        <div class="item"><img src="/demos/images/4.jpg" alt="Mirror Edge"></div>
+                        <div class="item"><img src="/demos/images/5.jpg" alt="Mirror Edge"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <!-- block -->
+                    <div class="block">
+                        <div class="navbar navbar-inner block-header">
+                            <h3> Book Now </h3>
+                        </div>
+                        <div class="block-content collapse in">
+                            <div class="span12">
+
+                                @using (Html.BeginForm("Search", "Search",FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true)
+
+
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            <label class="control-label">Arrival Date</label>
+                                            @*<div class="controls">
+                                                <input id="ArrivalDate" style="height:20px !important;" name="" value="@Model.ARRIVAL_DATE" class="input-large" type="date" placeholder="Arrival Date" />
+                                            </div>
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.ARRIVAL_DATE, new { htmlAttributes = new { type = "hidden" } })
+                                                @Html.ValidationMessageFor(model => model.ARRIVAL_DATE)
+                                            </div>*@
+                                            <div class="controls">
+                                                @Html.DropDownListFor(model => model.CheckIn.TakeDay, Model.CheckIn.Day, "Date", new { @class = "input-small" })
+                                                @Html.DropDownListFor(model => model.CheckIn.TakeMonth, Model.CheckIn.Month, "Month", new { @class = "input-small" })
+                                                @Html.DropDownListFor(model => model.CheckIn.TakeYear, Model.CheckIn.Year, "Year", new { @class = "input-small" })
+                                                @*@Html.DropDownListFor(model => model.CheckIn.TakeHour, Model.CheckIn.Hour, "Hour", new { @class = "input-small" })*@
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="span3">
+                                        <div class="control-group">
+                                            <label class="control-label"> Departure Date</label>
+                                            @*<div class="controls">
+                                                <input style="height: 20px !important;" name="" value="@Model.DEPARTURE_DATE" class="input-large" type="date" placeholder="Departure Date" />
+                                            </div>*@
+                                            @*<div class="col-md-10">
+                                                @Html.EditorFor(model => model.DEPARTURE_DATE)
+                                                @Html.ValidationMessageFor(model => model.DEPARTURE_DATE)
+                                            </div>*@
+                                            <div class="controls">
+                                                @Html.DropDownListFor(model => model.CheckOut.TakeDay, Model.CheckIn.Day, "Date", new { @class = "input-small" })
+                                                @Html.DropDownListFor(model => model.CheckOut.TakeMonth, Model.CheckIn.Month, "Month", new { @class = "input-small" })
+                                                @Html.DropDownListFor(model => model.CheckOut.TakeYear, Model.CheckIn.Year, "Year", new { @class = "input-small" })
+                                                @*@Html.DropDownListFor(model => model.CheckOut.TakeHour, Model.CheckIn.Hour, "Hour", new { @class = "input-small" })*@
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="span2">
+                                        <div class="col-md-10">
+                                            <label class="control-label">Rooms</label>
+                                            <div class="controls">
+                                                @Html.DropDownList("Rooms", new List<SelectListItem>
+                                             {
+                                                 new SelectListItem{Text = "1", Value = "1"},
+                                                 new SelectListItem{Text = "2" ,Value = "2"},
+                                                 new SelectListItem{Text = "3" ,Value = "3"}
+
+
+                                              })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="span2">
+                                        <div class="control-group">
+                                            <label class="control-label">Adults</label>
+                                            <div class="controls">
+                                                <input style="height: 20px !important;" name="" value= "" class="input-large" type="text" placeholder="Adults" />
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                    <div class="span2">
+                                        <div class="control-group">
+                                            <label class="control-label">Available Rooms</label>
+                                            <div class="controls">
+                                                <button type="submit" value="Create" class="span12 btn btn-primary">Search</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /block -->
+            </div>
+            <div class="row-fluid">
+                <hr />
+                <div class="span12">
+                    <div class="span4">
+                        <p>Own Site</p>
+                    </div>
+                    <div class="span4">
+                        <p>Contact us</p>
+                        <p>We Are Here ....</p>
+                        <p>Contact Sales</p>
+                        <p>CoxBazar +61 (0)2 8244 3060</p>
+                        <p>Bangladesh +1 415 655 1633</p>
+                    </div>
+                    <div class="span4">
+                        <p>Stay Connected With...</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <script src="/vendors/jquery-1.9.1.min.js"></script>
+    <script src="/Content/bootstrap.min.js"></script>
+    <script src="/vendors/piechart/jquery.easy-pie-chart.js"></script>
+    <script src="/assets/scripts.js"></script>
+    <script src="/owljs/owl.carousel.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#owl-demo").owlCarousel({
+
+                navigation: true,
+                slideSpeed: 300,
+                paginationSpeed: 400,
+                singleItem: true
+            });
+
+            $("#ArrivalDate").datepicker({
+                inline: true
+            });
+
+            $("#DepartureDate").datepicker({
+                inline: true
+            });
+
+            $("#ArrivalDate").change(function () {
+                alert("The text has been changed." + $("#ArrivalDate").val());
+            });
+            //$('input[type= datetime]').datepicker({
+                 
+            //    dateFormat: "dd/M/yy",
+            //    changeMonth: true,
+            //    changeYear: true,
+            //    yearRange: "-60:+0"
+            //});
+
+
+        });
+    </script>
+
+</body>
+</html>
+
+
+<!-- /block -->

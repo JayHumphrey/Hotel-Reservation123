@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OnlineHotelReservationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ADMIN_PROFILE">
+    <Key>
+      <PropertyRef Name="USER_ID" />
+      <PropertyRef Name="EMAIL" />
+    </Key>
+    <Property Name="USER_ID" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="PASSWORD" Type="nchar" MaxLength="8" Nullable="false" />
+    <Property Name="FIRST_NAME" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="LAST_NAME" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="PHONE_NO" Type="nchar" MaxLength="11" Nullable="false" />
+    <Property Name="EMAIL" Type="nvarchar" MaxLength="16" Nullable="false" />
+    <Property Name="STATUS" Type="nchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BILL_PAYMENT">
+    <Key>
+      <PropertyRef Name="PAYMENT_ID" />
+    </Key>
+    <Property Name="PAYMENT_ID" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="CUST_ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="TOTAL_AMOUNT" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="ADVANCE" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="BALANCE" Type="numeric" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="CUSTOMER_PROFILE">
+    <Key>
+      <PropertyRef Name="CUST_ID" />
+      <PropertyRef Name="EMAIL" />
+    </Key>
+    <Property Name="CUST_ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FIRST_NAME" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="LAST_NAME" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="ADDRESS" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="EMAIL" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="PHONE_NO" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="GENDER" Type="nchar" MaxLength="7" Nullable="false" />
+    <Property Name="STATUS" Type="nchar" MaxLength="10" />
+    <Property Name="PASSWORD" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RESERVATION">
+    <Key>
+      <PropertyRef Name="RESERVE_ID" />
+    </Key>
+    <Property Name="RESERVE_ID" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="PAYMENT_ID" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="CUST_ID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ARRIVAL_DATE" Type="datetime" Nullable="false" />
+    <Property Name="DEPARTURE_DATE" Type="datetime" Nullable="false" />
+    <Property Name="BOOKING_STATUS" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ROOM_DETAILS">
+    <Key>
+      <PropertyRef Name="ROOM_ID" />
+    </Key>
+    <Property Name="ROOM_ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="ROOM_TYPE" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="TOTAL_ROOMS" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="STATUS" Type="nvarchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ROOM_TYPE_INFO">
+    <Key>
+      <PropertyRef Name="ROOM_TYPE" />
+    </Key>
+    <Property Name="ROOM_TYPE" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="ROOM_PRICE" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MAX_GUEST" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="DISCOUNT" Type="numeric" Precision="18" Scale="0" />
+  </EntityType>
+  <Association Name="FK_RESERVATION_BILL_PAYMENT">
+    <End Role="BILL_PAYMENT" Type="Self.BILL_PAYMENT" Multiplicity="1" />
+    <End Role="RESERVATION" Type="Self.RESERVATION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BILL_PAYMENT">
+        <PropertyRef Name="PAYMENT_ID" />
+      </Principal>
+      <Dependent Role="RESERVATION">
+        <PropertyRef Name="PAYMENT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ROOM_DETAILS_ROOM_TYPE_INFO">
+    <End Role="ROOM_TYPE_INFO" Type="Self.ROOM_TYPE_INFO" Multiplicity="1" />
+    <End Role="ROOM_DETAILS" Type="Self.ROOM_DETAILS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROOM_TYPE_INFO">
+        <PropertyRef Name="ROOM_TYPE" />
+      </Principal>
+      <Dependent Role="ROOM_DETAILS">
+        <PropertyRef Name="ROOM_TYPE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="CUSTOMER_PROFILE_CustomerSignUp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Cust_ID" Type="uniqueidentifier" Mode="In" />
+    <Parameter Name="FirstName" Type="nchar" Mode="In" />
+    <Parameter Name="LastName" Type="nchar" Mode="In" />
+    <Parameter Name="Address" Type="nchar" Mode="In" />
+    <Parameter Name="Email" Type="nchar" Mode="In" />
+    <Parameter Name="Phone" Type="nvarchar" Mode="In" />
+    <Parameter Name="Gender" Type="nchar" Mode="In" />
+    <Parameter Name="PassWord" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="RoomsForPublicView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="OnlineHotelReservationModelStoreContainer">
+    <EntitySet Name="ADMIN_PROFILE" EntityType="Self.ADMIN_PROFILE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BILL_PAYMENT" EntityType="Self.BILL_PAYMENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CUSTOMER_PROFILE" EntityType="Self.CUSTOMER_PROFILE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RESERVATION" EntityType="Self.RESERVATION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ROOM_DETAILS" EntityType="Self.ROOM_DETAILS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ROOM_TYPE_INFO" EntityType="Self.ROOM_TYPE_INFO" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_RESERVATION_BILL_PAYMENT" Association="Self.FK_RESERVATION_BILL_PAYMENT">
+      <End Role="BILL_PAYMENT" EntitySet="BILL_PAYMENT" />
+      <End Role="RESERVATION" EntitySet="RESERVATION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ROOM_DETAILS_ROOM_TYPE_INFO" Association="Self.FK_ROOM_DETAILS_ROOM_TYPE_INFO">
+      <End Role="ROOM_TYPE_INFO" EntitySet="ROOM_TYPE_INFO" />
+      <End Role="ROOM_DETAILS" EntitySet="ROOM_DETAILS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

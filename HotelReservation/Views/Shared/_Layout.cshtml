@@ -1,0 +1,342 @@
+﻿@using HotelReservation.HelperCodes.Codes
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <!-- Bootstrap -->
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/lightbox.css" rel="stylesheet" />
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link href="/Content/bootstrap-responsive.min.css" rel="stylesheet" media="screen" />
+    <link href="/vendors/piechart/jquery.easy-pie-chart.css" rel="stylesheet" media="screen" />
+    <link href="/assets/styles.css" rel="stylesheet" media="screen" />
+    <script src="/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="~/assets/js/jquery-1.9.1.min.js"></script>
+    <link href="/css/owl.carousel.css" rel="stylesheet">
+    <link href="/css/owl.theme.css" rel="stylesheet">
+    <link href="prettify.css" rel="stylesheet">
+    <link href="~/css/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+
+
+
+
+    <style>
+        #owl-demo .item img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    </style>
+
+
+</head>
+<body>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+
+                <div class="nav-collapse collapse">
+
+                    @if (SessionHandler.CurrentUser != null)
+                    {
+                        if (SessionHandler.CurrentUser.Status == "ADMIN")
+                        {
+                        <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-user"></i> @SessionHandler.CurrentUser.FirstName @SessionHandler.CurrentUser.LastName<i class="caret"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        @Html.ActionLink("Edit", "Edit", "AdminSignUp", new { UserID = @SessionHandler.CurrentUser.UserID }, null)
+                                    </li>
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        @Html.ActionLink("View Details", "Details", "AdminSignUp", new { UserID = @SessionHandler.CurrentUser.UserID }, null)
+                                    </li>
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        @Html.ActionLink("Log Out", "AdminLogout", "AdminSignUp")
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                            
+                        }
+                         else
+                        {
+                            <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-user"></i> @SessionHandler.CurrentUser.FirstName @SessionHandler.CurrentUser.LastName<i class="caret"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        @Html.ActionLink("Edit", "Edit", "Customer_SignUp", new { custID = @SessionHandler.CurrentUser.UserID }, null)
+                                    </li>
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        @Html.ActionLink("View Details", "Details", "Customer_SignUp", new { custID = @SessionHandler.CurrentUser.UserID }, null)
+                                    </li>
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        @Html.ActionLink("Log Out", "CustomerLogout", "Customer_SignUp")
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        }
+                    }
+                    else
+                    {
+                        <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-user"></i>User<i class="caret"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        @Html.ActionLink("Sign Up", "CustomerSignUp", "Customer_SignUp")
+                                    </li>
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        @Html.ActionLink("Sign In", "customerLogin", "Customer_SignUp")
+                                    </li>
+                                </ul>
+                            </li>                          
+
+                        </ul>
+                        <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-user"></i>Admin <i class="caret"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        @Html.ActionLink("Admin SignUp", "AdminSignUp", "AdminSignUp")
+                                        @*<a href="AdminSignUp/AdminLogin?/returnUrl=null">Admin Login</a>*@
+                                    </li>
+                                    
+
+                                    <li class="divider"></li>
+
+                                    <li>
+                                        @Html.ActionLink("Admin Login", "AdminLogin", "AdminSignUp")
+                                        @*<a href="AdminSignUp/AdminLogin?/returnUrl=null">Admin Login</a>*@
+                                    </li>
+                                </ul>
+                            </li>                          
+
+                        </ul>
+                        @*<ul class="nav pull-right">
+
+                                <li>
+                                    @Html.ActionLink("Sign Up", "CustomerSignUp", "Customer_SignUp")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Sign In", "customerLogin", "Customer_SignUp")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Admin SignUp", "AdminSignUp", "AdminSignUp")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Admin Login", "AdminLogin", "AdminSignUp")
+                                </li>
+                            </ul>*@
+
+                    }
+                    <ul class="nav">
+                        <li class="active">
+                            @Html.ActionLink("Home", "Index", "Home")
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("Rooms", "Index", "RoomsForPublicView")
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                Add Rooms <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu" id="menu1">
+
+                                <li>
+                                    @Html.ActionLink("Add Room Details", "Index", "Room_Details")
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Add Room Types", "Index", "Room_Type_Info")
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="#">Location</a>
+                        </li>
+                        <li class="">
+                            <a href="#">Facilities</a>
+                        </li>
+
+                        <li class="">
+                            @Html.ActionLink("Gallery", "HotelGallery", "HotelGallery")
+
+
+                        </li>
+                        <li class="">
+                            <a href="Gallery.cshtml">Special Offer</a>
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("My Reservations", "MyReservations", "MyReservations")
+                        </li>
+
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+
+    <hr>
+    <footer>
+        <section id="bottom" class="wet-asphalt" style="background-color: #EDEDED;">
+            <div class="container">
+                <div class="row">
+                    <div class="span3">
+                        <h4>About Us</h4>
+                        <p>We are the most promenent software developing team in Bangladesh.</p>
+                        <p>We are here for your service</p>
+                    </div>
+                    <!--/.col-md-3-->
+
+                    @*<div class="span3">
+                        <h4>Company</h4>
+                        <div>
+                            <ul class="arrow">
+                                <li><a href="#">The Company</a></li>
+                                <li><a href="#">Our Team</a></li>
+                                <li><a href="#">Our Partners</a></li>
+                                <li><a href="#">Our Services</a></li>
+                                <li><a href="#">Faq</a></li>
+                                <li><a href="#">Conatct Us</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms of Use</a></li>
+                                <li><a href="#">Copyright</a></li>
+                            </ul>
+                        </div>
+                    </div>*@
+                    <!--/.col-md-3-->
+
+                    <div class="span3">
+                    </div>
+                    <!--/.col-md-3-->
+
+                    <div class="span3">
+                        <h4>Address</h4>
+                        <address>
+                            <strong>ISoftGeeks</strong><br>
+                            Bashati Condominium (9th Floor), Suite C9-10<br>
+                            House #15, Road #17<br>
+                            Banani C/A, Dhaka 1213<br>
+                            <abbr title="Phone">Tel :</abbr>
+                            +88 01673 89 68 37
+                        </address>
+
+                    </div>
+                    <!--/.col-md-3-->
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="span12">
+                        <center>Powered By <a href="http://www.isoftgeeks.com"><b>ISoftGeeks</b></a>, Sponsored By <a href="http://www.proggasoft.com"><b>Proggasoft</b></a></center>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </section>
+    </footer>
+    <script src="~/vendors/jquery-ui-1.10.3.js"></script>
+
+    <script src="/vendors/jquery-1.9.1.min.js"></script>
+    <script src="/Content/bootstrap.min.js"></script>
+    <script src="/vendors/piechart/jquery.easy-pie-chart.js"></script>
+    <script src="/assets/scripts.js"></script>
+    <script src="/owljs/owl.carousel.js"></script>
+    
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/scripts.js"></script>
+    <script src="~/Scripts/lightbox.min.js"></script>
+    @*<script src="~/Scripts/lightbox-plus-jquery.min.js"></script>*@
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker5').datetimepicker({
+                defaultDate: "11/1/2013",
+                disabledDates: [
+                    moment("12/25/2013"),
+                    new Date(2013, 11 - 1, 21),
+                    "11/22/2013 00:53"
+                ]
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#owl-demo").owlCarousel({
+
+                navigation: true,
+                slideSpeed: 300,
+                paginationSpeed: 400,
+                singleItem: true
+
+
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker5').datetimepicker({
+                defaultDate: "11/1/2013",
+                disabledDates: [
+                    moment("12/25/2013"),
+                    new Date(2013, 11 - 1, 21),
+                    "11/22/2013 00:53"
+                ]
+            });
+        });
+    </script>
+
+
+
+    
+
+    @RenderSection("scripts", required: false)
+
+
+
+</body>
+</html>

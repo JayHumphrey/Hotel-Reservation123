@@ -1,0 +1,204 @@
+﻿@model HotelReservation.Models.ReservationDetails
+
+@{
+    ViewBag.Title = "Reserve_Room";
+}
+<div class="row-fluid">
+    <div class="span12" id="content">
+        <hr />
+        <div class="row-fluid">
+            <div class="span3">
+            </div>
+            <div class="span5">
+                <h2 align="middle"> Your Room Details...... </h2>
+            </div>
+            <div class="span5">
+                @if (ViewBag.Message != null)
+                {
+                    <h3 align="middle" style="color:green;">@ViewBag.Message</h3>
+                }
+            </div>
+        </div>
+        <hr />
+    </div>
+
+    <div class="row-fluid">
+        <div class="span2">
+        </div>
+        <div class="span9">
+            <div class="row-fluid">
+                <!-- block -->
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <h3> My Room</h3>
+                    </div>
+                    <div class="block-content collapse in">
+                        <div class="span12">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                @Html.HiddenFor(model => model.RESERVE_ID)
+                                @Html.HiddenFor(model => model.CUST_ID)
+
+
+                                <div class="form-horizontal">
+                                    <br />
+                                    <br />
+                                    <br />
+
+
+                                    <div class="control-group">
+                                        <label class="control-label"><b>Arrival Date :</b></label>
+                                        <div class="controls">
+                                            <div class="col-md-10">
+                                                @Html.DisplayFor(model => model.ARRIVAL_DATE)
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="control-group">
+                                        <label class="control-label"><b>Departure Date :</b></label>
+                                        <div class="controls">
+                                            <div class="col-md-10">
+                                                @Html.DisplayFor(model => model.DEPARTURE_DATE)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label"><b> Room :</b></label>
+                                        <div class="controls">
+                                            <div class="col-md-10">
+                                                @Html.DisplayFor(model => model.ROOM_TYPE)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label"><b>Price :</b></label>
+                                        <div class="controls">
+                                            <div class="col-md-10">
+                                                @Html.DisplayFor(model => model.ROOM_PRICE)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label"><b>Description :</b></label>
+                                        <div class="controls">
+                                            <div class="col-md-10">
+                                                @Html.DisplayFor(model => model.DESCRIPTION)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label"><b>Max Guest :</b></label>
+                                        <div class="controls">
+                                            <div class="col-md-10">
+                                                @Html.DisplayFor(model => model.MAX_GUEST)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label"><b>Discount :</b></label>
+                                        <div class="controls">
+                                            <div class="col-md-10">
+                                                @Html.DisplayFor(model => model.DISCOUNT)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                     <br />
+                                        <div class="form-actions">
+                                            @Html.ActionLink("Go Next to Confirm Your Reservation....", "BillPayment_info", "BillPayment", new { @reservationID = Model.RESERVE_ID }, null)
+                                        </div>
+
+
+
+                                </div>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!-- /block -->
+            </div>
+
+        </div>
+        <div class="span3">
+        </div>
+    </div>
+</div>
+
+@*<div>
+    <h4>ReservationDetails</h4>
+	<hr />
+    <dl class="dl-horizontal">
+       
+            @Html.HiddenFor(model => model.RESERVE_ID)
+            @Html.HiddenFor(model => model.CUST_ID)       
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ARRIVAL_DATE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ARRIVAL_DATE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DEPARTURE_DATE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DEPARTURE_DATE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ROOM_TYPE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ROOM_TYPE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ROOM_PRICE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ROOM_PRICE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPTION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPTION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MAX_GUEST)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MAX_GUEST)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DISCOUNT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DISCOUNT)
+        </dd>
+        <dd>
+
+
+        </dd>
+    </dl>
+</div>*@
+<p>
+
+
+    @Html.ActionLink("Back to List", "Index")
+</p>

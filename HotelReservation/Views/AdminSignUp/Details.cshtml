@@ -1,0 +1,112 @@
+﻿@model HotelReservation.Models.ADMIN_PROFILE
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="row-fluid">
+    <!-- block -->
+    <div class="block">
+        <div class="navbar navbar-inner block-header">
+            <div><h4> Admin Details... </h4></div>
+        </div>
+        <div class="block-content collapse in">
+            <div class="span12">
+
+                <table>
+                    <tr>
+                        <td>
+                            <b>First Name :</b>
+                        </td>
+                        <td>
+                            <div class="display-field">
+                                @Html.DisplayFor(model => model.FIRST_NAME)
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <b>Last Name :</b>
+                        </td>
+                        <td>
+                            <div class="display-field">
+                                @Html.DisplayFor(model => model.LAST_NAME)
+                            </div>
+                        </td>
+                    </tr>                   
+                    <tr>
+
+                        <td><b> Email :</b></td>
+                        <td>
+                            <div class="display-field">
+                                @Html.DisplayFor(model => model.EMAIL)
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td><b>Phone Number :</b></td>
+                        <td>
+                            <div class="display-field">
+                                @Html.DisplayFor(model => model.PHONE_NO)
+                            </div>
+                        </td>
+                    </tr>                    
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- /block -->
+</div>
+
+@*<div>
+    <h4>ADMIN_PROFILE</h4>
+	<hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FIRST_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FIRST_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LAST_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LAST_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PHONE_NO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PHONE_NO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EMAIL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EMAIL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PASSWORD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PASSWORD)
+        </dd>
+
+
+    </dl>
+</div>*@
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
